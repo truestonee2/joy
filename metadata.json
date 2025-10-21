@@ -1,0 +1,5 @@
+{
+  "name": "AI Video Prompt Factory",
+  "description": "An application that uses AI to generate detailed and creative video prompts from simple ideas and user-defined parameters, helping users create stunning visuals with AI video generation models.",
+  "requestFramePermissions": []
+}
