@@ -63,12 +63,11 @@ export async function generateVideoPrompt(inputs: PromptInputs, language: 'en' |
   const speakerDetails = getSpeakerDetails(inputs);
 
   const geminiPrompt = `
-    You are an expert prompt engineer specializing in creating detailed, vivid, and effective prompts for AI video generation models.
-    Your task is to take a user's inputs and generate a comprehensive video prompt, structured as a JSON object. The entire output, including all text fields in the JSON, must be in ${languageName}.
+    **ROLE & GOAL:** You are a world-class screenwriter and creative director, an expert in translating simple ideas into profound, multi-sensory video experiences. Your task is to generate a rich, detailed, and production-ready video prompt in a structured JSON format, entirely in ${languageName}. You are not just a data processor; you are a creative partner.
 
-    The final JSON must conform to the provided schema. It should detail visual elements, camera movements, lighting, mood, and all audio cues (BGM, SFX, voice, dialogue). The total video duration should be exactly ${inputs.duration} seconds, and it must be structured into exactly ${inputs.segments} distinct scenes.
+    **CREATIVE MANDATE:** Your primary goal is to breathe life into the user's concept. All elements—visuals, sound, dialogue, pacing—must work in perfect harmony to create a compelling and emotionally resonant experience. Synthesize the user's inputs, but also make bold, creative choices to elevate the initial idea. If an input is vague (e.g., mood: 'sad'), interpret it with artistic flair (e.g., 'A melancholic atmosphere, rain-streaked windows, soft, blue-tinted lighting'). The user's inputs are the starting point, not a rigid boundary.
 
-    User's inputs:
+    **USER'S BLUEPRINT:**
     - Core Idea: "${inputs.simpleIdea}"
     - Genre: "${inputs.genre || 'not specified'}"
     - Style: "${inputs.style || 'not specified'}"
@@ -83,18 +82,21 @@ export async function generateVideoPrompt(inputs: PromptInputs, language: 'en' |
     - Dialogue Speaker Details: "${speakerDetails}"
     - Dialogue Style: "${inputs.dialogueStyle || 'not specified'}"
     - Dialogue Content: "${inputs.dialogue || 'not specified'}"
+    - Target Duration: ${inputs.duration} seconds
+    - Number of Scenes: ${inputs.segments}
 
-    Instructions:
-    1.  Create a creative title based on the core idea.
-    2.  Write a cohesive, narrative 'overall_prompt' that synthesizes all elements into a single paragraph. This will be the main scenario text.
-    3.  Divide the concept into exactly ${inputs.segments} scenes. For each scene in the 'scenes' array, provide a detailed description, camera direction, and relevant sound effects.
-    4.  Distribute the total duration of ${inputs.duration} seconds logically across the scenes.
-    5.  **Crucially, you must generate appropriate dialogue for each scene that requires it.** The dialogue should be based on the core idea, the scene's specific action, and the user's dialogue settings (speakers, style, and content). 
-        - If the user provided specific 'Dialogue Content', use it as a guide and distribute or adapt it logically across the scenes.
-        - If 'Dialogue Content' is empty or "not specified", you MUST create original dialogue that fits the scene and the overall narrative. If a scene has no dialogue, the 'dialogue' field for that scene must be an empty string.
-    6.  Populate the 'dialogue_details' object based on the dialogue inputs.
-    7.  If any other input field is 'not specified', use your creative expertise to infer appropriate details that complement the core idea.
-    8.  The final output must be ONLY the generated JSON object that strictly follows the schema.
+    **EXECUTION INSTRUCTIONS:**
+    1.  **Title:** Devise a captivating title that encapsulates the essence of the story.
+    2.  **Overall Prompt:** Write the \`overall_prompt\` as a masterful, narrative summary. This should read like a movie trailer voiceover script, painting a vivid picture of the entire concept in a single, powerful paragraph.
+    3.  **Scene Breakdown:** Divide the narrative into exactly ${inputs.segments} scenes. Each scene in the 'scenes' array must be a mini-masterpiece:
+        -   **Description:** Go beyond the literal. Describe the emotional subtext, the lighting, the textures, the things left unsaid.
+        -   **Camera:** The 'Camera' input is a suggestion. Choose camera work (shots, angles, movements) that serves the story and enhances the mood for each specific scene.
+        -   **SFX & Dialogue:** Weave sound effects and dialogue seamlessly into the narrative.
+    4.  **Dialogue Generation:** This is critical.
+        -   If the user provided 'Dialogue Content', treat it as a thematic guide. Adapt, expand, and distribute it logically across scenes to create natural, impactful conversations.
+        -   If 'Dialogue Content' is empty, you MUST write original, compelling dialogue that reveals character, advances the plot, and fits the tone. A scene without spoken words should have its 'dialogue' field as an empty string.
+    5.  **Synthesis:** Ensure all JSON fields (genre, style, mood, bgm, etc.) are not just copied, but are creatively reflected and expanded upon within the scene descriptions and the overall prompt. The BGM should complement the mood, the style should inform the visuals.
+    6.  **Schema Adherence:** Your final output must be ONLY the generated JSON object, strictly conforming to the provided schema. No extra text or explanations.
   `;
 
   try {

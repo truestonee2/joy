@@ -16,7 +16,13 @@ const PromptOutput: React.FC<PromptOutputProps> = ({ output, isLoading, error })
   const { t } = useLanguage();
 
   if (isLoading) {
-    return <Loader />;
+    return (
+        <div className="mt-8 text-center p-8 bg-gray-800/50 border border-gray-700 rounded-lg">
+            <Loader />
+            <p className="mt-4 text-lg text-gray-400 font-semibold">{t('loadingMessageTitle')}</p>
+            <p className="mt-2 text-gray-500">{t('loadingMessageSubtitle')}</p>
+        </div>
+    );
   }
 
   if (error) {

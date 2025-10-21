@@ -56,6 +56,8 @@ export const translations = {
     copyAllButton: 'Copy All',
     copySceneButton: 'Copy Scene',
     sceneTitle: 'Scene {scene_number}',
+    loadingMessageTitle: 'AI is crafting your masterpiece...',
+    loadingMessageSubtitle: 'This might take a few moments. Great ideas need time to brew.',
     // History
     historyTitle: 'Generation History',
     reuseButton: 'Reuse',
@@ -122,6 +124,8 @@ export const translations = {
     copyAllButton: '전체 복사',
     copySceneButton: '장면 복사',
     sceneTitle: '장면 {scene_number}',
+    loadingMessageTitle: 'AI가 스승님의 명작을 만들고 있습니다...',
+    loadingMessageSubtitle: '잠시만 기다려주세요. 위대한 아이디어는 숙성될 시간이 필요합니다.',
     // History
     historyTitle: '생성 기록',
     reuseButton: '재사용',
